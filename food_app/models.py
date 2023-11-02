@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from star_ratings.models import Rating
+
 
 # Create your models here.
 

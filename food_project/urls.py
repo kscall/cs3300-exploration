@@ -21,6 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #connect path to portfolio_app urls
     path('', include('food_app.urls')),
-    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ]
 
