@@ -1,0 +1,16 @@
+{% extends 'food_app/base_template.html' %}
+
+{% block content %}
+  <h1>Review List</h1>
+  {% if review_list %}
+    <ul>
+      {% for review in review_list %}
+        <li>
+          <a href="{{ review.get_absolute_url }}">{{ review.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no food reviews.</p>
+  {% endif %}
+{% endblock %}

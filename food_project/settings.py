@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'food_app',
     'star_ratings',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
