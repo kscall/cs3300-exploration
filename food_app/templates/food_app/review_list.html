@@ -9,6 +9,7 @@
       {% for review in review_list %}
         <li>
           {{ review.name }} <a class="btn btn-primary" href="{{ review.get_absolute_url }}" role="button">View</a>
+          <a class="btn btn-danger" href="{% url 'delete-review' review.id %}" role="Delete">Delete</a>
         </li>
       {% endfor %}
     </ul>

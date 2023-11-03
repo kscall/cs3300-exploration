@@ -11,4 +11,7 @@
   <p><strong>Rating:</strong> {{ review.rating }}/5</p>
   <p><strong>Details:</strong> {{ review.details }} </p>
 
+  <a class="btn btn-primary" href="{% url 'reviews' %}" role="Back">Back</a>
+  <a class="btn btn-primary" href="{% url 'update-review' review.id %}" role="Update">Update</a>
+
 {% endblock %}
