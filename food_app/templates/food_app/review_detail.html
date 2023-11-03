@@ -1,11 +1,13 @@
 {% extends 'food_app/base_template.html' %}
-
+{% load static %}
 
 {% block content %}
     <h1>Food: {{ review.name }}</h1>
 
+    {% if review.image %}
+    <img src="{{ review.image.url }}" alt="Food Image">
+    {% endif %}
+
     <p><strong>Details:</strong> {{ review.details }}</p>
-    <p><strong>Image:</strong> {{ review.image }}</p>
-    
 
 {% endblock %}

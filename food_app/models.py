@@ -8,7 +8,7 @@ class Review(models.Model):
 
     name = models.CharField("Food", max_length=200)
     details = models.TextField(max_length=200)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(blank=True, upload_to="media/")
 
     #Define default String to return the name for representing the Model object."
     def __str__(self):
