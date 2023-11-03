@@ -2,11 +2,13 @@
 
 {% block content %}
   <h1>Review List</h1>
+  <a class="btn btn-primary" href="{% url 'create-review' %}" role="button">Create</a>
+
   {% if review_list %}
     <ul>
       {% for review in review_list %}
         <li>
-          <a href="{{ review.get_absolute_url }}">{{ review.name }}</a>
+          {{ review.name }} <a class="btn btn-primary" href="{{ review.get_absolute_url }}" role="button">View</a>
         </li>
       {% endfor %}
     </ul>

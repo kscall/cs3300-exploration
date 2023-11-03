@@ -6,9 +6,19 @@ from django.urls import reverse
 
 class Review(models.Model):
 
+    RATINGS = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    
     name = models.CharField("Food", max_length=200)
+    rating = models.IntegerField(choices=RATINGS, default=0)
     details = models.TextField(max_length=200)
-    image = models.ImageField(blank=True, upload_to="media/")
+    image = models.ImageField(blank=True)
+    
 
     #Define default String to return the name for representing the Model object."
     def __str__(self):
