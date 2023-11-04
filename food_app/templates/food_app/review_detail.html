@@ -1,7 +1,11 @@
 {% extends 'food_app/base_template.html' %}
 {% load static %}
 
+<!-- Review detail page, displaying the food, image, author, & details of a review -->
+<!-- Allows user to update or delete review from this page -->
+
 {% block content %}
+
   <style>
     body {
       background-color: rgb(219, 205, 200);
@@ -10,13 +14,12 @@
   
   <h1 style="margin-top: 10px">Food: {{ review.name }}</h1>
 
-  <a class="btn btn-secondary" href="{% url 'reviews' %}" role="Back">Back</a>
+  <a class="btn btn-secondary" href="{% url 'reviews' %}" role="Back">Back</a><br><br>
 
-  <br />
-  <br />
-
+  <!-- Display review image if user chose to upload one (images are optional)-->
   {% if review.image %}
     <img src="{{ review.image.url }}" height="200" width="300" alt="Review Image" />
+  <!-- Otherwise, display default image -->
   {% else %}
     <img src="{% static 'images/default-img.png' %}" />
   {% endif %}
@@ -24,8 +27,10 @@
   <p>
     <strong>Author:</strong> {{ review.author }}
   </p>
+
   <p>
     <strong>Rating:</strong>
+    <!-- Displays star rating based on the 1-5 value user entered for a numeric rating of the food -->
     {% if review.rating == 1 %}
       <img src="{% static 'images/Star_rating_1_of_5.png' %}" height="28" width="130" alt="1/5 Stars" />
     {% elif review.rating == 2 %}
@@ -38,10 +43,14 @@
       <img src="{% static 'images/Star_rating_5_of_5.png' %}" height="28" width="130" alt="5/5 Stars" />
     {% endif %}
   </p>
+
   <p>
     <strong>Details:</strong> {{ review.details }}
   </p>
 
+  <!-- Directs to updating a review -->
   <a class="btn btn-primary" href="{% url 'update-review' review.id %}" role="Update">Update</a>
+  <!-- Directs to deleting a review -->
   <a class="btn btn-danger" href="{% url 'delete-review' review.id %}" role="Delete">Delete</a>
+  
 {% endblock %}

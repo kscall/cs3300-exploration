@@ -5,32 +5,36 @@ from django.views import generic
 from .forms import ReviewForm
 from django.contrib import messages
 
-# Create your views here.
 def index(request):
-   
 
 # Render the HTML template index.html with the data in the context variable.
    return render(request, 'food_app/index.html')
 
+# Review List & Detail View Classes
 class ReviewListView(generic.ListView):
    model = Review
 class ReviewDetailView(generic.DetailView):
    model = Review
 
-# Update Review
+# Create Review
 def createReview(request):
     
+    # Begin with empty form
     form = ReviewForm()
 
     if request.method == 'POST':
         
+        # Copy user's entered input & uploaded image from form
         food_data = request.POST.copy()
         form = ReviewForm(food_data, request.FILES)
         
+        # If user fills out form correctly, create a new review
         if form.is_valid(): 
             form.save()
+            # Redirect back to reviews page
             return redirect('reviews')
-        
+    
+    # Redirect user to create review page
     context = {'form': form}
     return render(request, 'food_app/review_form_create.html', context)
 
@@ -75,5 +79,6 @@ def updateReview(request, review_id):
          return redirect('review-detail', pk=review_id)
 
 
+    # Redirect user to update review page
     context = {'form': form, 'pk': review_id}
     return render(request, 'food_app/review_form_update.html', context)

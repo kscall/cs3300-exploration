@@ -1,5 +1,7 @@
 {% extends 'food_app/base_template.html' %}
 
+<!-- Form used to update a review -->
+
 {% block content %}
   <style>
     body {
@@ -14,7 +16,7 @@
     }
 
     form {
-      text-align: left; /* Adjust text alignment for the form */
+      text-align: left; 
     }
   </style>
 
@@ -23,7 +25,9 @@
       {% csrf_token %}
       <table>{{ form.as_table }}</table>
       <br>
+      <!-- Go back to detail page of review we're updating -->
       <a class="btn btn-secondary" href="{% url 'review-detail' pk=pk %}" role="Back">Back</a>
+      <!-- Update review -->
       <input class="btn btn-primary" type="submit" value="Submit" />
     </form>
   </div>

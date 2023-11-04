@@ -1,7 +1,13 @@
 {% extends 'food_app/base_template.html' %}
 {% load static %}
 
+<!-- Displays the list of reviews through Bootstrap's table class -->
+<!-- Shows the food, rating, image of a review -->
+<!-- To view details of a review, user can click view on the details column-->
+<!-- To create a new review, user can click create review on the top of the page -->
+
 {% block content %}
+
   <style>
     
     body {
@@ -21,10 +27,13 @@
     }
   </style>
 
+  <!-- Allow user to create a new review -->
   <h1 style="margin-top: 10px">Review List</h1>
   <a class="btn btn-success" style="margin-bottom: 10px;" href="{% url 'create-review' %}" role="button">Create a Review</a>
 
+  <!-- Ensures if there are reviews or not -->
   {% if review_list %}
+
     {% for review in review_list %}
       <table class="table table-hover">
         <thead>
@@ -38,11 +47,13 @@
 
         <tbody>
           <tr>
+
             <th scope="row">
               <h3>{{ review.name }}</h3>
             </th>
 
             <td>
+              <!-- Displays star rating based on the 1-5 value user entered for a numeric rating of the food -->
               {% if review.rating == 1 %}
                 <img src="{% static 'images/Star_rating_1_of_5.png' %}" />
               {% elif review.rating == 2 %}
@@ -57,21 +68,28 @@
             </td>
 
             <td>
+              <!-- Display review image if user chose to upload one (images are optional)-->
               {% if review.image %}
                 <img src="{{ review.image.url }}" height="200" width="300" alt="Review Image" />
+              <!-- Otherwise, display default image -->
               {% else %}
                 <img src="{% static 'images/default-img.png' %}" />
               {% endif %}
             </td>
 
+            <!-- Direct user to review detail page -->
             <td>
               <a class="btn btn-primary btn-lg" href="{{ review.get_absolute_url }}" role="button">View</a>
             </td>
+            
           </tr>
         </tbody>
       </table>
+
     {% endfor %}
+
   {% else %}
     <p>There are no food reviews.</p>
   {% endif %}
+
 {% endblock %}

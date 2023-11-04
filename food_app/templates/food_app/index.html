@@ -1,8 +1,9 @@
-<!-- inherit from base.html -->
+<!-- inherit from base_template.html -->
 {% extends 'food_app/base_template.html' %}
 {% load static %}
 
-<!-- Replace block content in base_template.html -->
+<!-- Home page giving an overview of the site's purpose & features -->
+
 {% block content %}
   <style>
 
@@ -23,20 +24,16 @@
       height: 80vh;
     }  
     
-
   </style>
 
   <div class="header">
-    <h1>Food Reviews</h1>
-    <br>
-    <h3>• Share your opinion on your favorite (and least favorite) foods! </h3>
-    <br>
-    <h3>• View reviews by your friends, family, or other people! </h3>
-    <br>
-    <h3>• Find new food recommendations to try for yourself! </h3>
-    <br>
-    <br>
+
+    <h1>Food Reviews</h1> <br>
+    <h3>• Share your opinion on your favorite (and least favorite) foods! </h3> <br>
+    <h3>• View reviews by your friends, family, or other people! </h3> <br>
+    <h3>• Find new food recommendations to try for yourself! </h3> <br> <br>
     <h2>Click 'Reviews' to begin!</h2>
+
   </div>
 
 {% endblock %}

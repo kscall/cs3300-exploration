@@ -1,5 +1,7 @@
 {% extends 'food_app/base_template.html' %}
 
+<!-- Form used to create a review -->
+
 {% block content %}
 
   <style>
@@ -17,6 +19,7 @@
     form {
       text-align: left; 
     }
+    
   </style>
 
   <div class="center-container">
@@ -24,7 +27,9 @@
       {% csrf_token %}
       <table>{{ form.as_table }}</table>
       <br>
+      <!-- Go back to reviews page -->
       <a class="btn btn-secondary" href="{% url 'reviews' %}" role="Back">Back</a>
+      <!-- Create the review -->
       <input class="btn btn-primary" type="submit" value="Submit" />
     </form>
   </div>
