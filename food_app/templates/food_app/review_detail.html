@@ -1,22 +1,47 @@
 {% extends 'food_app/base_template.html' %}
+{% load static %}
 
 {% block content %}
+  <style>
+    body {
+      background-color: rgb(219, 205, 200);
+    }
+  </style>
 
   <h1>Food: {{ review.name }}</h1>
 
-  <a class="btn btn-primary" href="{% url 'reviews' %}" role="Back">Back</a>
+  <a class="btn btn-secondary" href="{% url 'reviews' %}" role="Back">Back</a>
 
+  <br />
   <br />
 
   {% if review.image %}
-    <img src="{{ review.image.url }}" height="200" width="300" alt="Food Image" />
+    <img src="{{ review.image.url }}" height="200" width="300" alt="Review Image" />
+  {% else %}
+    <img src="{% static 'images/default-img.png' %}" />
   {% endif %}
 
-  <p><strong>Author:</strong> {{ review.author }}</p>
-  <p><strong>Rating:</strong> {{ review.rating }}/5</p>
-  <p><strong>Details:</strong> {{ review.details }} </p>
+  <p>
+    <strong>Author:</strong> {{ review.author }}
+  </p>
+  <p>
+    <strong>Rating:</strong>
+    {% if review.rating == 1 %}
+      <img src="{% static 'images/Star_rating_1_of_5.png' %}" height="28" width="130" alt="1/5 Stars" />
+    {% elif review.rating == 2 %}
+      <img src="{% static 'images/Star_rating_2_of_5.png' %}" height="28" width="130" alt="2/5 Stars" />
+    {% elif review.rating == 3 %}
+      <img src="{% static 'images/Star_rating_3_of_5.png' %}" height="28" width="130" alt="3/5 Stars" />
+    {% elif review.rating == 4 %}
+      <img src="{% static 'images/Star_rating_4_of_5.png' %}" height="28" width="130" alt="4/5 Stars" />
+    {% elif review.rating == 5 %}
+      <img src="{% static 'images/Star_rating_5_of_5.png' %}" height="28" width="130" alt="5/5 Stars" />
+    {% endif %}
+  </p>
+  <p>
+    <strong>Details:</strong> {{ review.details }}
+  </p>
 
   <a class="btn btn-primary" href="{% url 'update-review' review.id %}" role="Update">Update</a>
   <a class="btn btn-danger" href="{% url 'delete-review' review.id %}" role="Delete">Delete</a>
-
 {% endblock %}

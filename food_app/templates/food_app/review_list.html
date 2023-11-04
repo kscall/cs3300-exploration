@@ -1,49 +1,75 @@
 {% extends 'food_app/base_template.html' %}
+{% load static %}
 
 {% block content %}
   <style>
-    /* Borders Class Definition */
-    /* Creates borders around containers */
-    .borders {
-      border: 2px solid lightgrey;
-      width: 350px;
-      padding: 5px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      display: inline-block;
-    }
     
-    .center {
+    body {
+      background-color: rgb(219, 205, 200);
+    }
+
+    .image {
       height: 200px;
       width: 300px;
       display: block;
       margin-left: auto;
       margin-right: auto;
     }
+    
+    td {
+      width: 25%;
+    }
   </style>
 
-  <h1>Review List</h1>
-  <a class="btn btn-primary" href="{% url 'create-review' %}" role="button">Create a Review</a>
-  <br />
-  <br />
+  <h1 style="margin-top: 10px">Review List</h1>
+  <a class="btn btn-success" style="margin-bottom: 10px;" href="{% url 'create-review' %}" role="button">Create a Review</a>
+
   {% if review_list %}
     {% for review in review_list %}
-      <div class="borders">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Food</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Image</th>
+            <th scope="col">Details</th>
+          </tr>
+        </thead>
 
-        <div style="text-align: center;">
-          <h3 style="display: inline-block;">{{ review.name }}</h3>
-          <a class="btn btn-primary" href="{{ review.get_absolute_url }}" role="button">View</a>
-        </div>
-        <br>
+        <tbody>
+          <tr>
+            <th scope="row">
+              <h3>{{ review.name }}</h3>
+            </th>
 
-        {% if review.image %}
-          <div class="center">
-            <img src="{{ review.image.url }}" height="200" width="300" alt="Review Image" />
-          </div>
-        {% endif %}
-        <br />
-        <br />
-      </div>
+            <td>
+              {% if review.rating == 1 %}
+                <img src="{% static 'images/Star_rating_1_of_5.png' %}" />
+              {% elif review.rating == 2 %}
+                <img src="{% static 'images/Star_rating_2_of_5.png' %}" />
+              {% elif review.rating == 3 %}
+                <img src="{% static 'images/Star_rating_3_of_5.png' %}" />
+              {% elif review.rating == 4 %}
+                <img src="{% static 'images/Star_rating_4_of_5.png' %}" />
+              {% elif review.rating == 5 %}
+                <img src="{% static 'images/Star_rating_5_of_5.png' %}" />
+              {% endif %}
+            </td>
+
+            <td>
+              {% if review.image %}
+                <img src="{{ review.image.url }}" height="200" width="300" alt="Review Image" />
+              {% else %}
+                <img src="{% static 'images/default-img.png' %}" />
+              {% endif %}
+            </td>
+
+            <td>
+              <a class="btn btn-primary btn-lg" href="{{ review.get_absolute_url }}" role="button">View</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     {% endfor %}
   {% else %}
     <p>There are no food reviews.</p>

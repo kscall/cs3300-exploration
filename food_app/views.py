@@ -32,7 +32,7 @@ def createReview(request):
             return redirect('reviews')
         
     context = {'form': form}
-    return render(request, 'food_app/review_form.html', context)
+    return render(request, 'food_app/review_form_create.html', context)
 
 # Delete Review
 def deleteReview(request, review_id):
@@ -71,9 +71,9 @@ def updateReview(request, review_id):
          # If so, update the review
          review.save()
 
-         # Redirect back to the reviews page
-         return redirect('reviews')
+         # Redirect back to the review detail page
+         return redirect('review-detail', pk=review_id)
 
 
-    context = {'form': form}
-    return render(request, 'food_app/review_form.html', context)
+    context = {'form': form, 'pk': review_id}
+    return render(request, 'food_app/review_form_update.html', context)
