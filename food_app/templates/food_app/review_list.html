@@ -1,18 +1,50 @@
 {% extends 'food_app/base_template.html' %}
 
 {% block content %}
-  <h1>Review List</h1>
-  <a class="btn btn-primary" href="{% url 'create-review' %}" role="button">Create</a>
+  <style>
+    /* Borders Class Definition */
+    /* Creates borders around containers */
+    .borders {
+      border: 2px solid lightgrey;
+      width: 350px;
+      padding: 5px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    
+    .center {
+      height: 200px;
+      width: 300px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 
+  <h1>Review List</h1>
+  <a class="btn btn-primary" href="{% url 'create-review' %}" role="button">Create a Review</a>
+  <br />
+  <br />
   {% if review_list %}
-    <ul>
-      {% for review in review_list %}
-        <li>
-          {{ review.name }} <a class="btn btn-primary" href="{{ review.get_absolute_url }}" role="button">View</a>
-          <a class="btn btn-danger" href="{% url 'delete-review' review.id %}" role="Delete">Delete</a>
-        </li>
-      {% endfor %}
-    </ul>
+    {% for review in review_list %}
+      <div class="borders">
+
+        <div style="text-align: center;">
+          <h3 style="display: inline-block;">{{ review.name }}</h3>
+          <a class="btn btn-primary" href="{{ review.get_absolute_url }}" role="button">View</a>
+        </div>
+        <br>
+
+        {% if review.image %}
+          <div class="center">
+            <img src="{{ review.image.url }}" height="200" width="300" alt="Review Image" />
+          </div>
+        {% endif %}
+        <br />
+        <br />
+      </div>
+    {% endfor %}
   {% else %}
     <p>There are no food reviews.</p>
   {% endif %}

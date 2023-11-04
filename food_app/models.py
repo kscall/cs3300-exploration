@@ -15,6 +15,7 @@ class Review(models.Model):
     )
     
     name = models.CharField("Food", max_length=200)
+    author = models.CharField(max_length=200, default="")
     rating = models.IntegerField(choices=RATINGS, default=0)
     details = models.TextField(max_length=200)
     image = models.ImageField(blank=True)

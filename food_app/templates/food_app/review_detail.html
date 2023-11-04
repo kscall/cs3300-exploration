@@ -4,14 +4,19 @@
 
   <h1>Food: {{ review.name }}</h1>
 
+  <a class="btn btn-primary" href="{% url 'reviews' %}" role="Back">Back</a>
+
+  <br />
+
   {% if review.image %}
     <img src="{{ review.image.url }}" height="200" width="300" alt="Food Image" />
   {% endif %}
 
+  <p><strong>Author:</strong> {{ review.author }}</p>
   <p><strong>Rating:</strong> {{ review.rating }}/5</p>
   <p><strong>Details:</strong> {{ review.details }} </p>
 
-  <a class="btn btn-primary" href="{% url 'reviews' %}" role="Back">Back</a>
   <a class="btn btn-primary" href="{% url 'update-review' review.id %}" role="Update">Update</a>
+  <a class="btn btn-danger" href="{% url 'delete-review' review.id %}" role="Delete">Delete</a>
 
 {% endblock %}
