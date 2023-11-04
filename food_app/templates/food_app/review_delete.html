@@ -6,16 +6,27 @@
     body {
       background-color: rgb(219, 205, 200);
     }
+    
+    .center-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      height: 50vh;
+    }
   </style>
 
+  <div class="center-container">
+    <h3 style="margin-top: 10px;"> ⚠︎ CAUTION!</h3>
+    <h3 style="margin-top: 30px;">Are you sure you want to delete "{{ item }}"?</h3>
+    <br>
 
-  <p>Are you sure you want to delete "{{ item }}?"</p>
+    <form action="{% url 'delete-review' item.id %}" method="POST">
+      {% csrf_token %}
 
-  <form action="{% url 'delete-review' item.id %}" method="POST">
-    {% csrf_token %}
-    <a class="btn btn-primary" href="{% url 'reviews' %}">Cancel</a>
+      <a class="btn btn-primary btn-lg" href="{% url 'reviews' %}">Cancel</a>
 
-    <input type="submit" name="Confirm" />
-  </form>
-  
+      <input type="submit" name="Confirm" style="width: 100px; height: 40px;" />
+    </form>
+  </div>
 {% endblock %}
