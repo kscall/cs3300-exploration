@@ -28,7 +28,7 @@
       {% csrf_token %}
 
       <!-- User chooses not to delete review -->
-      <a class="btn btn-primary btn-lg" href="{% url 'reviews' %}">Cancel</a>
+      <a class="btn btn-primary btn-lg" href="{% url 'review-detail' pk=item.id %}">Cancel</a>
 
       <!-- User chooses to delete review -->
       <input type="submit" name="Confirm" style="width: 100px; height: 40px;" />
