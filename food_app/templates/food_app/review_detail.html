@@ -7,11 +7,18 @@
 {% block content %}
 
   <style>
+    
     body {
       background-color: rgb(219, 205, 200);
     }
+
+    .stars {
+      height=28px;
+      width=130px;
+    }
+
   </style>
-  
+
   <h1 style="margin-top: 10px">Food: {{ review.name }}</h1>
 
   <a class="btn btn-secondary" href="{% url 'reviews' %}" role="Back">Back</a><br><br>
@@ -30,6 +37,7 @@
 
   <p>
     <strong>Rating:</strong>
+<<<<<<< HEAD
     <!-- Displays star rating based on the 1-5 value user entered for a numeric rating of the food -->
     {% if review.rating == 1 %}
       <img src="{% static 'images/Star_rating_1_of_5.png' %}" height="28" width="130" alt="1/5 Stars" />
@@ -44,6 +52,25 @@
     {% endif %}
   </p>
 
+=======
+
+    <div class="stars">
+      {% if review.rating == 1 %}
+        <img src="{% static 'images/Star_rating_1_of_5.png' %}" alt="1/5 Stars" />
+      {% elif review.rating == 2 %}
+        <img src="{% static 'images/Star_rating_2_of_5.png' %}" alt="2/5 Stars" />
+      {% elif review.rating == 3 %}
+        <img src="{% static 'images/Star_rating_3_of_5.png' %}" alt="3/5 Stars" />
+      {% elif review.rating == 4 %}
+        <img src="{% static 'images/Star_rating_4_of_5.png' %}" alt="4/5 Stars" />
+      {% elif review.rating == 5 %}
+        <img src="{% static 'images/Star_rating_5_of_5.png' %}" alt="5/5 Stars" />
+      {% endif %}
+    </div>
+
+  </p>
+  
+>>>>>>> testing
   <p>
     <strong>Details:</strong> {{ review.details }}
   </p>
