@@ -67,7 +67,7 @@ def updateReview(request, review_id):
     if request.method == 'POST':
        
       # Create form instance with submitted data & preexisting review
-      form = ReviewForm(request.POST, instance = review)
+      form = ReviewForm(request.POST, request.FILES, instance = review)
 
       # Ensure updated review credentials are valid
       if form.is_valid():
