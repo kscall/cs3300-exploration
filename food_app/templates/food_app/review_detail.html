@@ -18,10 +18,10 @@
 
   <!-- Display review image if user chose to upload one (images are optional)-->
   {% if review.image %}
-    <img src="{{ review.image.url }}" height="200" width="300" alt="Review Image" />
+    <img src="{{ review.image.url }}" height="200" width="300" alt="{{review.name}} Image" />
   <!-- Otherwise, display default image -->
   {% else %}
-    <img src="{% static 'images/default-img.png' %}" />
+    <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" />
   {% endif %}
 
   <p>
