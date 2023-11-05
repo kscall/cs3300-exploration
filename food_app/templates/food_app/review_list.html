@@ -3,17 +3,15 @@
 
 <!-- Displays the list of reviews through Bootstrap's table class -->
 <!-- Shows the food, rating, image of a review -->
-<!-- To view details of a review, user can click view on the details column-->
+<!-- To view details of a review, user can click view on the details column -->
 <!-- To create a new review, user can click create review on the top of the page -->
 
 {% block content %}
-
   <style>
-    
     body {
       background-color: rgb(219, 205, 200);
     }
-
+    
     .image {
       height: 200px;
       width: 300px;
@@ -33,7 +31,6 @@
 
   <!-- Ensures if there are reviews or not -->
   {% if review_list %}
-
     {% for review in review_list %}
       <table class="table table-hover">
         <thead>
@@ -47,7 +44,6 @@
 
         <tbody>
           <tr>
-
             <th scope="row">
               <h3>{{ review.name }}</h3>
             </th>
@@ -68,12 +64,12 @@
             </td>
 
             <td>
-              <!-- Display review image if user chose to upload one (images are optional)-->
+              <!-- Display review image if user chose to upload one (images are optional) -->
               {% if review.image %}
-                <img src="{{ review.image.url }}" height="200" width="300" alt="Review Image" />
-              <!-- Otherwise, display default image -->
+                <img src="{{ review.image.url }}" height="200" width="300" alt="{{ review.name }} Image" />
+                <!-- Otherwise, display default image -->
               {% else %}
-                <img src="{% static 'images/default-img.png' %}" />
+              <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" />
               {% endif %}
             </td>
 
@@ -81,15 +77,11 @@
             <td>
               <a class="btn btn-primary btn-lg" href="{{ review.get_absolute_url }}" role="button">View</a>
             </td>
-            
           </tr>
         </tbody>
       </table>
-
     {% endfor %}
-
   {% else %}
     <p>There are no food reviews.</p>
   {% endif %}
-
 {% endblock %}
