@@ -4,7 +4,7 @@ from django.urls import reverse
 # Review Model
 class Review(models.Model):
 
-    # Choice of ratings can rate a food as (1-5)
+    # Choice of ratings users can rate a food as (1-5)
     RATINGS = (
         (1, '1'),
         (2, '2'),
@@ -21,7 +21,7 @@ class Review(models.Model):
     image = models.ImageField(blank=True)
     
 
-    # Define default String to return the name for representing the Model object."
+    # Define default String to return the name for representing the Model object.
     def __str__(self):
         return self.name
 
