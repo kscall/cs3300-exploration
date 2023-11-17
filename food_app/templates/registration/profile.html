@@ -1,0 +1,11 @@
+<!-- inherit from base.html -->
+{% extends 'food_app/base_template.html' %}
+
+{% block content %}
+  <style>
+    body {
+      background-color: rgb(219, 205, 200);
+    }
+  </style>
+  <h1>{{ request.user }}'s Profile</h1>
+{% endblock %}

@@ -14,6 +14,12 @@
       color: black;
       font-weight: bold;
     }
+
+    .hello-msg {
+      color: black;
+      margin-right: 20px;
+    }
+
   </style>
 
   <head>
@@ -39,6 +45,14 @@
             <a class="nav-link" href="{% url 'reviews' %}">Reviews</a>
           </div>
         </div>
+
+    {% if not request.user.is_authenticated %}
+        <span><a class="hello-msg" href="{% url 'login' %}">Sign In</a></span>
+    {% else %}
+        <span><a class="hello-msg" href="{% url 'profile' %}">Profile</a></span>
+        <span><a class="hello-msg" href="{% url 'logout' %}">Log Out</a></span>
+    {% endif %}
+    
       </div>
     </nav>
 

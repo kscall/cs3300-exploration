@@ -2,8 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 from django.views import generic
-from .forms import ReviewForm
+from .forms import ReviewForm, CreateUserForm
+
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+from .decorators import *
 
 def index(request):
 
@@ -82,3 +87,49 @@ def updateReview(request, review_id):
     # Redirect user to update review page
     context = {'form': form, 'pk': review_id}
     return render(request, 'food_app/review_form_update.html', context)
+
+
+#View for registering a user
+@unauthenticated_user
+def registerPage(request):
+
+    form = CreateUserForm()
+
+    if request.method =='POST':
+        form = CreateUserForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+
+        messages.success(request, 'Account was created for ' + username)
+        return redirect('login')
+
+    context = {'form': form}
+    return render(request, 'registration/register.html', context)
+
+'''
+def loginPage(request):
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('index') 
+
+    context = {}
+    return render(request, 'registration/login.html', context)
+'''
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
+def userProfile(request):
+    context = {}
+    return render(request, 'registration/profile.html', context)
