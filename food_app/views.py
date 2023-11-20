@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 from django.views import generic
-from .forms import ReviewForm, CreateUserForm
+from .forms import *
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -22,12 +22,16 @@ class ReviewDetailView(generic.DetailView):
    model = Review
 
 # Create Review
+@login_required(login_url='login')
 def createReview(request):
     
     # Begin with empty form
     form = ReviewForm()
 
     if request.method == 'POST':
+
+        # Get the currently logged-in customer
+        profile = request.user.profile  
         
         # Copy user's entered input & uploaded image from form
         food_data = request.POST.copy()
@@ -35,6 +39,8 @@ def createReview(request):
         
         # If user fills out form correctly, create a new review
         if form.is_valid(): 
+            review = form.save(commit=False)
+            review.author = profile
             form.save()
             # Redirect back to reviews page
             return redirect('reviews')
@@ -43,7 +49,7 @@ def createReview(request):
     context = {'form': form}
     return render(request, 'food_app/review_form_create.html', context)
 
-# Delete Review
+@incorrect_author
 def deleteReview(request, review_id):
    
     # Initialize review we are deleting
@@ -60,7 +66,7 @@ def deleteReview(request, review_id):
     context = {'item': review}
     return render(request, 'food_app/review_delete.html', context)
 
-# Update Review
+@incorrect_author
 def updateReview(request, review_id):
    
     # Initialize review we are updating
@@ -99,8 +105,14 @@ def registerPage(request):
         form = CreateUserForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            user = form.save()
             username = form.cleaned_data.get('username')
+
+            Profile.objects.create(
+                user=user,
+                name=user.username,
+                email=user.email,
+            )
 
         messages.success(request, 'Account was created for ' + username)
         return redirect('login')
@@ -108,28 +120,45 @@ def registerPage(request):
     context = {'form': form}
     return render(request, 'registration/register.html', context)
 
-'''
-def loginPage(request):
-
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('index') 
-
-    context = {}
-    return render(request, 'registration/login.html', context)
-'''
-
 
 def logoutUser(request):
     logout(request)
     return redirect('login')
 
-def userProfile(request):
-    context = {}
+def personalProfile(request):
+    profile = request.user.profile 
+    review_list = Review.objects.filter(author=profile)
+    context = {'profile': profile, 'review_list': review_list}
     return render(request, 'registration/profile.html', context)
+
+def userProfile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    review_list = Review.objects.filter(author=profile)
+
+    context = {'profile': profile, 'review_list': review_list, 'user': request.user}
+    
+    return render(request, 'registration/profile.html', context)
+
+@authenticated_user
+def updateProfile(request):
+
+    profile = request.user.profile
+
+    form = ProfileForm(instance=profile)
+
+    if request.method == 'POST':
+    
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+
+        if form.is_valid():
+          
+            profile = form.save(commit=False)
+            profile.is_private = form.cleaned_data['is_private']
+            profile.save()
+
+            return redirect('profile')
+        
+    context = {'form': form}
+    return render(request, 'registration/profile_form_update.html', context)
+
+

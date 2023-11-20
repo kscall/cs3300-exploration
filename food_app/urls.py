@@ -1,5 +1,7 @@
 from django.urls import path, include
 from . import views
+from .decorators import *
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -23,12 +25,13 @@ urlpatterns = [
     path('review/<int:review_id>/update_review/', views.updateReview, name='update-review'),
 
     # User Accounts
+    path('accounts/login/', unauthenticated_user(auth_views.LoginView.as_view()), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register/', views.registerPage, name = 'register'),
-    #path('accounts/login/', views.loginPage, name = 'login'),
     path('logout/', views.logoutUser, name = 'logout'),
 
-    path('accounts/profile/', views.userProfile, name = 'profile'),
+    path('accounts/profile/', views.personalProfile, name = 'profile'),
+    path('accounts/update_profile/', views.updateProfile, name = 'update-profile'),
+    path('accounts/profile/<int:pk>/', views.userProfile, name = 'profile-detail'),
 
-    
 ]

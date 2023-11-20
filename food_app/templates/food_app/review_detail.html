@@ -24,9 +24,8 @@
     <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" />
   {% endif %}
 
-  <p>
-    <strong>Author:</strong> {{ review.author }}
-  </p>
+ <p><strong>Author:</strong> <a href="{% url 'profile-detail' review.author.id %}">{{ review.author.name }}</a></p>
+
 
   <p>
     <strong>Rating:</strong>
@@ -50,9 +49,11 @@
     <strong>Details:</strong> {{ review.details }}
   </p>
 
-  <!-- Directs to updating a review -->
-  <a class="btn btn-primary" href="{% url 'update-review' review.id %}" role="Update">Update</a>
-  <!-- Directs to deleting a review -->
-  <a class="btn btn-danger" href="{% url 'delete-review' review.id %}" role="Delete">Delete</a>
+  {% if review.author|striptags == user|striptags %}
+    <!-- Directs to updating a review -->
+    <a class="btn btn-primary" href="{% url 'update-review' review.id %}" role="Update">Update</a>
+    <!-- Directs to deleting a review -->
+    <a class="btn btn-danger" href="{% url 'delete-review' review.id %}" role="Delete">Delete</a>
+  {% endif %}
   
 {% endblock %}
