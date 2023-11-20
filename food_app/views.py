@@ -153,7 +153,7 @@ def updateProfile(request):
         if form.is_valid():
           
             profile = form.save(commit=False)
-            profile.is_private = form.cleaned_data['is_private']
+            profile.is_private = request.POST.get('is_private') == 'on'
             profile.save()
 
             return redirect('profile')

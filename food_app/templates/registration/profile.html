@@ -13,7 +13,7 @@
     }
   </style>
 
-  {% if profile.is_private %}
+  {% if profile.is_private and profile.user.username != user.username %}
     <p>This user's account is private.</p>
   {% else %}
 
