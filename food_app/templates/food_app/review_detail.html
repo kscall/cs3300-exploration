@@ -5,55 +5,58 @@
 <!-- Allows user to update or delete review from this page -->
 
 {% block content %}
-
   <style>
     body {
       background-color: rgb(219, 205, 200);
     }
   </style>
+
+  {% if review.author.is_private and review.author.user != request.user %}
   
-  <h1 style="margin-top: 10px">Food: {{ review.name }}</h1>
+    <h3 style="margin-top: 50px">This user's reviews are private.</h3>
 
-  <a class="btn btn-secondary" href="{% url 'reviews' %}" role="Back">Back</a><br><br>
-
-  <!-- Display review image if user chose to upload one (images are optional)-->
-  {% if review.image %}
-    <img src="{{ review.image.url }}" height="200" width="300" alt="{{review.name}} Image" />
-  <!-- Otherwise, display default image -->
   {% else %}
-    <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" />
-  {% endif %}
 
- <p><strong>Author:</strong> <a href="{% url 'profile-detail' review.author.id %}">{{ review.author.name }}</a></p>
+    <h1 style="margin-top: 10px">Food: {{ review.name }}</h1>
 
+    <a class="btn btn-secondary" href="{% url 'reviews' %}" role="Back">Back</a><br /><br />
 
-  <p>
-    <strong>Rating:</strong>
-
-    <!-- Displays star rating based on the 1-5 value user entered for a numeric rating of the food -->
-    {% if review.rating == 1 %}
-      <img src="{% static 'images/Star_rating_1_of_5.png' %}" height="28" width="130" alt="1/5 Stars" />
-    {% elif review.rating == 2 %}
-      <img src="{% static 'images/Star_rating_2_of_5.png' %}" height="28" width="130" alt="2/5 Stars" />
-    {% elif review.rating == 3 %}
-      <img src="{% static 'images/Star_rating_3_of_5.png' %}" height="28" width="130" alt="3/5 Stars" />
-    {% elif review.rating == 4 %}
-      <img src="{% static 'images/Star_rating_4_of_5.png' %}" height="28" width="130" alt="4/5 Stars" />
-    {% elif review.rating == 5 %}
-      <img src="{% static 'images/Star_rating_5_of_5.png' %}" height="28" width="130" alt="5/5 Stars" />
+    <!-- Display review image if user chose to upload one (images are optional) -->
+    {% if review.image %}
+      <img src="{{ review.image.url }}" height="200" width="300" alt="{{ review.name }} Image" />
+      <!-- Otherwise, display default image -->
+    {% else %}
+      <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" />
     {% endif %}
-    
-  </p>
 
-  <p>
-    <strong>Details:</strong> {{ review.details }}
-  </p>
+    <p><strong>Author:</strong> <a href="{% url 'profile-detail' review.author.id %}">{{ review.author.name }}</a></p>
 
-  {% if review.author|striptags == user|striptags %}
-    <!-- Directs to updating a review -->
-    <a class="btn btn-primary" href="{% url 'update-review' review.id %}" role="Update">Update</a>
-    <!-- Directs to deleting a review -->
-    <a class="btn btn-danger" href="{% url 'delete-review' review.id %}" role="Delete">Delete</a>
+    <p>
+      <strong>Rating:</strong>
+
+      <!-- Displays star rating based on the 1-5 value user entered for a numeric rating of the food -->
+      {% if review.rating == 1 %}
+        <img src="{% static 'images/Star_rating_1_of_5.png' %}" height="28" width="130" alt="1/5 Stars" />
+      {% elif review.rating == 2 %}
+        <img src="{% static 'images/Star_rating_2_of_5.png' %}" height="28" width="130" alt="2/5 Stars" />
+      {% elif review.rating == 3 %}
+        <img src="{% static 'images/Star_rating_3_of_5.png' %}" height="28" width="130" alt="3/5 Stars" />
+      {% elif review.rating == 4 %}
+        <img src="{% static 'images/Star_rating_4_of_5.png' %}" height="28" width="130" alt="4/5 Stars" />
+      {% elif review.rating == 5 %}
+        <img src="{% static 'images/Star_rating_5_of_5.png' %}" height="28" width="130" alt="5/5 Stars" />
+      {% endif %}
+    </p>
+
+    <p><strong>Details:</strong> {{ review.details }}</p>
+
+    {% if review.author.name == user.username %}
+      <!-- Directs to updating a review -->
+      <a class="btn btn-primary" href="{% url 'update-review' review.id %}" role="Update">Update</a>
+      <!-- Directs to deleting a review -->
+      <a class="btn btn-danger" href="{% url 'delete-review' review.id %}" role="Delete">Delete</a>
+    {% endif %}
+
   {% endif %}
-  
+
 {% endblock %}

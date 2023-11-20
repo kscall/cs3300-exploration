@@ -9,6 +9,9 @@ class ReviewForm(ModelForm):
     class Meta:
         model = Review
         fields = ('name', 'rating', 'details', 'image')
+        labels = {
+            'name': 'Food Name',
+        }
 
 # Class for create user form
 class CreateUserForm(UserCreationForm):
@@ -21,3 +24,7 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['image', 'name', 'email', 'biography']
+        labels = {
+            'image': 'Profile Picture',
+            'biography': 'About Me',
+        }

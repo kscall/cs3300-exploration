@@ -18,6 +18,7 @@ def index(request):
 # Review List & Detail View Classes
 class ReviewListView(generic.ListView):
    model = Review
+   
 class ReviewDetailView(generic.DetailView):
    model = Review
 

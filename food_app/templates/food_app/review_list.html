@@ -27,6 +27,7 @@
 
   <!-- Allow user to create a new review -->
   <h1 style="margin-top: 10px">Review List</h1>
+
   {% if request.user.is_authenticated %}
     <a class="btn btn-success" style="margin-bottom: 10px;" href="{% url 'create-review' %}" role="button">Create a Review</a>
   {% endif %}
@@ -34,54 +35,56 @@
   <!-- Ensures if there are reviews or not -->
   {% if review_list %}
     {% for review in review_list %}
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Food</th>
-            <th scope="col">Rating</th>
-            <th scope="col">Image</th>
-            <th scope="col">Details</th>
-          </tr>
-        </thead>
+      {% if not review.author.is_private %}
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Food</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Image</th>
+              <th scope="col">Details</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <tr>
-            <th scope="row">
-              <h3>{{ review.name }}</h3>
-            </th>
+          <tbody>
+            <tr>
+              <th scope="row">
+                <h3>{{ review.name }}</h3>
+              </th>
 
-            <td>
-              <!-- Displays star rating based on the 1-5 value user entered for a numeric rating of the food -->
-              {% if review.rating == 1 %}
-                <img src="{% static 'images/Star_rating_1_of_5.png' %}" />
-              {% elif review.rating == 2 %}
-                <img src="{% static 'images/Star_rating_2_of_5.png' %}" />
-              {% elif review.rating == 3 %}
-                <img src="{% static 'images/Star_rating_3_of_5.png' %}" />
-              {% elif review.rating == 4 %}
-                <img src="{% static 'images/Star_rating_4_of_5.png' %}" />
-              {% elif review.rating == 5 %}
-                <img src="{% static 'images/Star_rating_5_of_5.png' %}" />
-              {% endif %}
-            </td>
+              <td>
+                <!-- Displays star rating based on the 1-5 value user entered for a numeric rating of the food -->
+                {% if review.rating == 1 %}
+                  <img src="{% static 'images/Star_rating_1_of_5.png' %}" />
+                {% elif review.rating == 2 %}
+                  <img src="{% static 'images/Star_rating_2_of_5.png' %}" />
+                {% elif review.rating == 3 %}
+                  <img src="{% static 'images/Star_rating_3_of_5.png' %}" />
+                {% elif review.rating == 4 %}
+                  <img src="{% static 'images/Star_rating_4_of_5.png' %}" />
+                {% elif review.rating == 5 %}
+                  <img src="{% static 'images/Star_rating_5_of_5.png' %}" />
+                {% endif %}
+              </td>
 
-            <td>
-              <!-- Display review image if user chose to upload one (images are optional) -->
-              {% if review.image %}
-                <img src="{{ review.image.url }}" height="200" width="300" alt="{{ review.name }} Image" />
-                <!-- Otherwise, display default image -->
-              {% else %}
-              <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" />
-              {% endif %}
-            </td>
+              <td>
+                <!-- Display review image if user chose to upload one (images are optional) -->
+                {% if review.image %}
+                  <img src="{{ review.image.url }}" height="200" width="300" alt="{{ review.name }} Image" />
+                  <!-- Otherwise, display default image -->
+                {% else %}
+                  <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" />
+                {% endif %}
+              </td>
 
-            <!-- Direct user to review detail page -->
-            <td>
-              <a class="btn btn-primary btn-lg" href="{{ review.get_absolute_url }}" role="button">View</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <!-- Direct user to review detail page -->
+              <td>
+                <a class="btn btn-primary btn-lg" href="{{ review.get_absolute_url }}" role="button">View</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      {% endif %}
     {% endfor %}
   {% else %}
     <p>There are no food reviews.</p>
