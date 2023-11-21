@@ -129,7 +129,9 @@ def logoutUser(request):
 def personalProfile(request):
     profile = request.user.profile 
     review_list = Review.objects.filter(author=profile)
+    
     context = {'profile': profile, 'review_list': review_list}
+
     return render(request, 'registration/profile.html', context)
 
 def userProfile(request, pk):

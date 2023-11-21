@@ -32,60 +32,43 @@
     <a class="btn btn-success" style="margin-bottom: 10px;" href="{% url 'create-review' %}" role="button">Create a Review</a>
   {% endif %}
 
-  <!-- Ensures if there are reviews or not -->
   {% if review_list %}
-    {% for review in review_list %}
-      {% if not review.author.is_private %}
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Food</th>
-              <th scope="col">Rating</th>
-              <th scope="col">Image</th>
-              <th scope="col">Details</th>
-            </tr>
-          </thead>
+    <div class="row">
+      {% for review in review_list %}
+        {% if not review.author.is_private %}
+          <div class="col-md-3 mb-4">
+            <div class="card" style="max-height: 400px; max-width: 300px; background-color: rgb(219, 205, 200);">
+              {% if review.image %}
+                <img src="{{ review.image.url }}" class="card-img-top" width="300" height="200" alt="{{ review.name }} Image" />
+              {% else %}
+                <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" width="300" height="200"/>
+              {% endif %}
 
-          <tbody>
-            <tr>
-              <th scope="row">
-                <h3>{{ review.name }}</h3>
-              </th>
+              <div class="card-body">
+                <h5 class="card-title">{{ review.name }}</h5>
 
-              <td>
-                <!-- Displays star rating based on the 1-5 value user entered for a numeric rating of the food -->
                 {% if review.rating == 1 %}
-                  <img src="{% static 'images/Star_rating_1_of_5.png' %}" />
+                  <img src="{% static 'images/Star_rating_1_of_5.png' %}" class="star-rating" />
                 {% elif review.rating == 2 %}
-                  <img src="{% static 'images/Star_rating_2_of_5.png' %}" />
+                  <img src="{% static 'images/Star_rating_2_of_5.png' %}" class="star-rating" />
                 {% elif review.rating == 3 %}
-                  <img src="{% static 'images/Star_rating_3_of_5.png' %}" />
+                  <img src="{% static 'images/Star_rating_3_of_5.png' %}" class="star-rating" />
                 {% elif review.rating == 4 %}
-                  <img src="{% static 'images/Star_rating_4_of_5.png' %}" />
+                  <img src="{% static 'images/Star_rating_4_of_5.png' %}" class="star-rating" />
                 {% elif review.rating == 5 %}
-                  <img src="{% static 'images/Star_rating_5_of_5.png' %}" />
+                  <img src="{% static 'images/Star_rating_5_of_5.png' %}" class="star-rating" />
                 {% endif %}
-              </td>
 
-              <td>
-                <!-- Display review image if user chose to upload one (images are optional) -->
-                {% if review.image %}
-                  <img src="{{ review.image.url }}" height="200" width="300" alt="{{ review.name }} Image" />
-                  <!-- Otherwise, display default image -->
-                {% else %}
-                  <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" />
-                {% endif %}
-              </td>
+                <p class="card-text">{{ review.description }}</p>
 
-              <!-- Direct user to review detail page -->
-              <td>
-                <a class="btn btn-primary btn-lg" href="{{ review.get_absolute_url }}" role="button">View</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      {% endif %}
-    {% endfor %}
+                <!-- Direct user to review detail page -->
+                <a href="{{ review.get_absolute_url }}" class="btn btn-primary">View</a>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
   {% else %}
     <p>There are no food reviews.</p>
   {% endif %}

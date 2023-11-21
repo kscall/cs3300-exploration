@@ -19,7 +19,11 @@
 
     <h1 style="margin-top: 10px">Food: {{ review.name }}</h1>
 
-    <a class="btn btn-secondary" href="{% url 'reviews' %}" role="Back">Back</a><br /><br />
+    {% if review.author.is_private %}
+      <a class="btn btn-secondary" href="{% url 'profile' %}" role="Back">Back</a><br /><br />
+    {% else %}
+      <a class="btn btn-secondary" href="{% url 'reviews' %}" role="Back">Back</a><br /><br />
+    {% endif %}
 
     <!-- Display review image if user chose to upload one (images are optional) -->
     {% if review.image %}
@@ -28,6 +32,7 @@
     {% else %}
       <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" />
     {% endif %}
+
 
     <p><strong>Author:</strong> <a href="{% url 'profile-detail' review.author.id %}">{{ review.author.name }}</a></p>
 
