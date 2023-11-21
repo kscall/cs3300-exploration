@@ -34,7 +34,7 @@
     {% endif %}
 
 
-    <p><strong>Author:</strong> <a href="{% url 'profile-detail' review.author.id %}">{{ review.author.name }}</a></p>
+    <p><strong>Author:</strong> <a href="{% url 'profile-detail' review.author.username %}">{{ review.author.name }}</a></p>
 
     <p>
       <strong>Rating:</strong>

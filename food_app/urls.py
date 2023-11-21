@@ -32,6 +32,6 @@ urlpatterns = [
 
     path('accounts/profile/', views.personalProfile, name = 'profile'),
     path('accounts/update_profile/', views.updateProfile, name = 'update-profile'),
-    path('accounts/profile/<int:pk>/', views.userProfile, name = 'profile-detail'),
+    path('accounts/profile/<str:username>/', views.userProfile, name = 'profile-detail'),
 
 ]

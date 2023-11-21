@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -21,10 +22,23 @@ class CreateUserForm(UserCreationForm):
 
 # Class for profile form
 class ProfileForm(ModelForm):
+    
+    username = forms.CharField(disabled=True, required=False)
+
     class Meta:
         model = Profile
-        fields = ['image', 'name', 'email', 'biography']
+        fields = ['image', 'username', 'name', 'email', 'biography']
         labels = {
             'image': 'Profile Picture',
             'biography': 'About Me',
         }
+        widgets = {
+            'username': forms.TextInput(attrs={'readonly': 'readonly'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+
+        # Set the initial value for the 'username' field to the username
+        if self.instance.user:
+            self.initial['username'] = self.instance.user.username

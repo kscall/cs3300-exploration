@@ -41,22 +41,22 @@
               {% if review.image %}
                 <img src="{{ review.image.url }}" class="card-img-top" width="300" height="200" alt="{{ review.name }} Image" />
               {% else %}
-                <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" width="300" height="200"/>
+                <img src="{% static 'images/default-img.png' %}" alt="Default Review Image" width="300" height="200" />
               {% endif %}
 
               <div class="card-body">
                 <h5 class="card-title">{{ review.name }}</h5>
 
                 {% if review.rating == 1 %}
-                  <img src="{% static 'images/Star_rating_1_of_5.png' %}" class="star-rating" />
+                  <img src="{% static 'images/Star_rating_1_of_5.png' %}" class="img-fluid" />
                 {% elif review.rating == 2 %}
-                  <img src="{% static 'images/Star_rating_2_of_5.png' %}" class="star-rating" />
+                  <img src="{% static 'images/Star_rating_2_of_5.png' %}" class="img-fluid" />
                 {% elif review.rating == 3 %}
-                  <img src="{% static 'images/Star_rating_3_of_5.png' %}" class="star-rating" />
+                  <img src="{% static 'images/Star_rating_3_of_5.png' %}" class="img-fluid" />
                 {% elif review.rating == 4 %}
-                  <img src="{% static 'images/Star_rating_4_of_5.png' %}" class="star-rating" />
+                  <img src="{% static 'images/Star_rating_4_of_5.png' %}" class="img-fluid" />
                 {% elif review.rating == 5 %}
-                  <img src="{% static 'images/Star_rating_5_of_5.png' %}" class="star-rating" />
+                  <img src="{% static 'images/Star_rating_5_of_5.png' %}" class="img-fluid" />
                 {% endif %}
 
                 <p class="card-text">{{ review.description }}</p>

@@ -33,13 +33,13 @@
     <div class="profile-top">
       <!-- Display review image if the user chose to upload one (images are optional) -->
       {% if profile.image %}
-        <img class="rounded-circle article-img" src="{{ profile.image.url }}" height="200" width="200" alt="{{ profile.name }}'s Profile Picture" />
+        <img class="rounded-circle article-img" src="{{ profile.image.url }}" height="175" width="175" alt="{{ profile.name }}'s Profile Picture" />
       {% else %}
-        <img src="{% static 'images/default-pfp.png' %}" height="200" width="200" alt="Default Review Image" />
+        <img src="{% static 'images/default-pfp.png' %}" height="175" width="175" alt="Default Review Image" />
       {% endif %}
 
       <div class="profile-header">
-        <h1>{{ profile.user }}'s Profile</h1>
+        <h1>{{ profile.name }}</h1>
         {% if profile.user.username == user.username %}
           <a class="btn btn-primary" href="{% url 'update-profile' %}" style="margin-left: 20px; margin-top: 5px; height: 40px;" role="Edit Profile">Edit Profile</a>
         {% endif %}
@@ -54,7 +54,7 @@
     </div>
 
     {% if review_list %}
-      <h3>Reviews</h3>
+      <h2>Reviews</h2>
 
       <div class="row">
         {% for review in review_list %}
@@ -71,15 +71,15 @@
 
                 <!-- Displays star rating based on the 1-5 value user entered for a numeric rating of the food -->
                 {% if review.rating == 1 %}
-                  <img src="{% static 'images/Star_rating_1_of_5.png' %}" class="star-rating" />
+                  <img src="{% static 'images/Star_rating_1_of_5.png' %}" class="img-fluid" />
                 {% elif review.rating == 2 %}
-                  <img src="{% static 'images/Star_rating_2_of_5.png' %}" class="star-rating" />
+                  <img src="{% static 'images/Star_rating_2_of_5.png' %}" class="img-fluid" />
                 {% elif review.rating == 3 %}
-                  <img src="{% static 'images/Star_rating_3_of_5.png' %}" class="star-rating" />
+                  <img src="{% static 'images/Star_rating_3_of_5.png' %}" class="img-fluid" />
                 {% elif review.rating == 4 %}
-                  <img src="{% static 'images/Star_rating_4_of_5.png' %}" class="star-rating" />
+                  <img src="{% static 'images/Star_rating_4_of_5.png' %}" class="img-fluid" />
                 {% elif review.rating == 5 %}
-                  <img src="{% static 'images/Star_rating_5_of_5.png' %}" class="star-rating" />
+                  <img src="{% static 'images/Star_rating_5_of_5.png' %}" class="img-fluid" />
                 {% endif %}
 
                 <p class="card-text">{{ review.description }}</p>
@@ -92,7 +92,7 @@
         {% endfor %}
       </div>
     {% else %}
-      <p>This user has no food reviews.</p>
+      <h2 style="text-align: center; padding-top: 70px;">This user has no food reviews.</h2>
     {% endif %}
   {% endif %}
 {% endblock %}

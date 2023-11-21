@@ -134,13 +134,15 @@ def personalProfile(request):
 
     return render(request, 'registration/profile.html', context)
 
-def userProfile(request, pk):
-    profile = Profile.objects.get(id=pk)
+def userProfile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = get_object_or_404(Profile, user=user)
     review_list = Review.objects.filter(author=profile)
 
-    context = {'profile': profile, 'review_list': review_list, 'user': request.user}
+    context = {'profile': profile, 'review_list': review_list, 'user': request.user, 'username': username}
     
     return render(request, 'registration/profile.html', context)
+
 
 @authenticated_user
 def updateProfile(request):

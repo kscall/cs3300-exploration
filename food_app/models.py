@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     # Fields (user, name, email, image, bio)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=200, blank=True)
+    name = models.CharField(max_length=50, blank=True)
     email = models.CharField(max_length=200)
     image = models.ImageField(blank=True, upload_to='profile_pics')
     biography = models.TextField(blank=True, max_length=200)
@@ -21,6 +21,9 @@ class Profile(models.Model):
     # add a "View on Site" button to the model's record editing screens in the Admin site.
     def get_absolute_url(self):
         return reverse('profile-detail', args=[str(self.id)])
+    
+    def username(self):
+        return self.user.username
 
 # Review Model
 class Review(models.Model):
