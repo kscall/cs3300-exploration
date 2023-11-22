@@ -54,6 +54,7 @@ class LoginTestCase(TestCase):
 class LogOutTestCase(TestCase):
     
     def test_logoutProfile(self):
+        
         user = User.objects.create_user(username='bob', password='abc1234', email='bob@gmail.com')
         Profile.objects.create(user=user)
 
@@ -86,6 +87,7 @@ class HomePageTestCase(StaticLiveServerTestCase):
         super(HomePageTestCase, self).tearDown()
 
     def test_HomePageContents(self):
+
         self.selenium.get(self.live_server_url)
 
         # Check contents of home page
