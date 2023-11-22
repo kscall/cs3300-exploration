@@ -43,8 +43,10 @@ def createReview(request):
             review = form.save(commit=False)
             review.author = profile
             form.save()
-            # Redirect back to reviews page
-            return redirect('reviews')
+            if review.author.is_private :
+                return redirect('profile')
+            else:
+                return redirect('reviews')
     
     # Redirect user to create review page
     context = {'form': form}

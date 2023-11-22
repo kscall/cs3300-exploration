@@ -1,10 +1,9 @@
 {% load static %}
 <!DOCTYPE html>
 
-<!-- Base Template for each HTML page displaying the navbar-->
+<!-- Base Template for each HTML page displaying the navbar -->
 
 <html lang="en">
-
   <style>
     .navbar-custom {
       background-color: rgb(127, 119, 116, 0.85);
@@ -14,27 +13,23 @@
       color: black;
       font-weight: bold;
     }
-
+    
     .navbar-profile {
       color: black;
       margin-right: 20px;
     }
-
   </style>
 
   <head>
-
     <title>TasteBuds</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-
   </head>
 
   <body>
-
     <nav class="navbar navbar-expand-lg navbar-custom lead">
       <img src="{% static 'images/foodreview.png' %}" height="70" width="70" />
       <div class="container-fluid">
@@ -46,13 +41,12 @@
           </div>
         </div>
 
-    {% if not request.user.is_authenticated %}
-        <span><a class="navbar-profile" href="{% url 'login' %}">Sign In</a></span>
-    {% else %}
-        <span><a class="navbar-profile" href="{% url 'profile' %}">Profile</a></span>
-        <span><a class="navbar-profile" href="{% url 'logout' %}">Log Out</a></span>
-    {% endif %}
-    
+        {% if not request.user.is_authenticated %}
+          <span><a class="navbar-profile" href="{% url 'login' %}">Sign In</a></span>
+        {% else %}
+          <span><a class="navbar-profile" href="{% url 'profile' %}">Profile</a></span>
+          <span><a class="navbar-profile" href="{% url 'logout' %}">Log Out</a></span>
+        {% endif %}
       </div>
     </nav>
 
@@ -60,6 +54,5 @@
     {% block content %}
 
     {% endblock %}
-
   </body>
 </html>
