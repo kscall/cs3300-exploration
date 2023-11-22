@@ -15,32 +15,32 @@ class ProfileTestCase(TestCase):
     def test_createProfile(self):
 
         user_data = {
-            'username': 'testuser',
-            'email': 'testuser@gmail.com',
-            'password1': 'testpassword',
-            'password2': 'testpassword',
+            'username': 'bob',
+            'email': 'bob@gmail.com',
+            'password1': 'abc1234',
+            'password2': 'abc1234',
         }
 
         response = self.client.post(reverse('register'), data=user_data)
 
         # Check if the user was created successfully
         self.assertEqual(response.status_code, 302)
-        self.assertTrue(User.objects.filter(username='testuser').exists())
+        self.assertTrue(User.objects.filter(username='bob').exists())
 
-        created_profile = Profile.objects.get(user__username='testuser')
-        self.assertEqual(created_profile.email, 'testuser@gmail.com')
+        created_profile = Profile.objects.get(user__username='bob')
+        self.assertEqual(created_profile.email, 'bob@gmail.com')
 
 
 class LoginTestCase(TestCase):
     
     def test_loginProfile(self):
 
-        user = User.objects.create_user(username='testuser', password='testpassword', email='testuser@gmail.com')
+        user = User.objects.create_user(username='bob', password='abc1234', email='bob@gmail.com')
         Profile.objects.create(user=user)
 
         login_data = {
-            'username': 'testuser',
-            'password': 'testpassword',
+            'username': 'bob',
+            'password': 'abc1234',
         }
 
         response = self.client.post(reverse('login'), data=login_data, follow=True)
@@ -54,12 +54,12 @@ class LoginTestCase(TestCase):
 class LogOutTestCase(TestCase):
     
     def test_logoutProfile(self):
-        user = User.objects.create_user(username='testuser', password='testpassword', email='testuser@gmail.com')
+        user = User.objects.create_user(username='bob', password='abc1234', email='bob@gmail.com')
         Profile.objects.create(user=user)
 
         login_data = {
-            'username': 'testuser',
-            'password': 'testpassword',
+            'username': 'bob',
+            'password': 'abc1234',
         }
 
         self.client.post(reverse('login'), data=login_data, follow=True)
@@ -108,19 +108,19 @@ class ReviewTestCase(StaticLiveServerTestCase):
 
     def test_ReviewExists(self):
         
-        user = User.objects.create_user(username='testuser', password='testpassword', email='testuser@gmail.com')
+        user = User.objects.create_user(username='bob', password='abc1234', email='bob@gmail.com')
         Profile.objects.create(user=user)
 
         login_data = {
-            'username': 'testuser',
-            'password': 'testpassword',
+            'username': 'bob',
+            'password': 'abc1234',
         }
         self.client.post(reverse('login'), data=login_data, follow=True)
 
         review_data = {
             'name': 'Cookie',
             'rating': 5,
-            'details': 'Absolutely scrumptious!S',
+            'details': 'Absolutely scrumptious!',
         }
 
         self.client.post(reverse('create-review'), data=review_data, follow=True)
