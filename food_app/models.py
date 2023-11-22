@@ -7,7 +7,7 @@ class Profile(models.Model):
     # Fields (user, name, email, image, bio)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50, blank=True)
-    email = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200)
     image = models.ImageField(blank=True, upload_to='profile_pics')
     biography = models.TextField(blank=True, max_length=200)
     is_private = models.BooleanField(default=False)
