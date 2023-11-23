@@ -131,7 +131,7 @@ class ReviewTestCase(StaticLiveServerTestCase):
         loginBtn.click()
         sleep(2)
 
-        reviews_link = self.selenium.find_element(By.LINK_TEXT, 'Reviews')
+        reviews_link = self.selenium.find_element(By.ID, 'reviews')
         reviews_link.click()
         sleep(2)
         
