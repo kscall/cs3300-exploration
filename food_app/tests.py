@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 '''
@@ -98,7 +97,7 @@ class HomePageTestCase(StaticLiveServerTestCase):
         self.assertEqual(sub_text, "Click 'Reviews' to get started!")
 
 
-class ReviewTestCase(LiveServerTestCase):
+class ReviewTestCase(StaticLiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Chrome()
