@@ -8,6 +8,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from time import sleep
 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
 '''
 Unit Tests
 '''
@@ -129,12 +133,16 @@ class ReviewTestCase(StaticLiveServerTestCase):
 
         self.client.post(reverse('create-review'), data=review_data, follow=True)
 
-        # Check if review was created
-        self.selenium.get(self.live_server_url)
-        reviews_link = self.selenium.find_element(By.LINK_TEXT, 'Reviews')
+        reviews_link = WebDriverWait(self.selenium, 10).until(
+            EC.presence_of_element_located((By.LINK_TEXT, 'Reviews'))
+        )
+
         reviews_link.click()
+
+        WebDriverWait(self.selenium, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'row'))
+        )
 
         reviews = self.selenium.find_elements(By.CLASS_NAME, 'row')
 
-        # Assert tat reviews exist
         self.assertNotEqual(len(reviews), 0)
