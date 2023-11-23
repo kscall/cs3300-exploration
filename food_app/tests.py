@@ -105,6 +105,7 @@ class ReviewTestCase(StaticLiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Chrome()
+        self.selenium.maximize_window()
         super(ReviewTestCase, self).setUp()
 
     def tearDown(self):
