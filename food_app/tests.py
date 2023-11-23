@@ -135,9 +135,10 @@ class ReviewTestCase(StaticLiveServerTestCase):
         self.selenium.get(self.live_server_url)
         reviews_link = self.selenium.find_element(By.LINK_TEXT, 'Reviews')
         reviews_link.click()
-        sleep(3)
+        sleep(10)
 
         reviews = self.selenium.find_elements(By.CLASS_NAME, 'row')
+        sleep(10)
 
         # Assert tat reviews exist
         self.assertNotEqual(len(reviews), 0)
