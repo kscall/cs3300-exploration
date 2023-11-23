@@ -6,6 +6,9 @@ from .models import Profile
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from time import sleep
+from selenium.webdriver.common.keys import Keys
+
 '''
 Unit Tests
 '''
@@ -88,6 +91,7 @@ class HomePageTestCase(StaticLiveServerTestCase):
     def test_HomePageContents(self):
 
         self.selenium.get(self.live_server_url)
+        sleep(2)
 
         # Check contents of home page
         header_text = self.selenium.find_element(By.CSS_SELECTOR, '.header h1').text
@@ -111,30 +115,49 @@ class ReviewTestCase(StaticLiveServerTestCase):
         
         user = User.objects.create_user(username='bob', password='bobbybrown1', email='bob@gmail.com')
         Profile.objects.create(user=user)
-
-        login_data = {
-            'username': 'bob',
-            'password': 'bobbybrown1',
-        }
         
-        self.client.post(reverse('login'), data=login_data, follow=True)
-
-        review_data = {
-            'name': 'Cookie',
-            'rating': 5,
-            'details': 'Absolutely scrumptious!',
-        }
-
-        self.client.post(reverse('create-review'), data=review_data, follow=True)
-
-        # Create review
         self.selenium.get(self.live_server_url)
-        reviews_link = self.selenium.find_element(By.PARTIAL_LINK_TEXT, 'Reviews')
+        sleep(2)
+
+        signin_link = self.selenium.find_element(By.LINK_TEXT, 'Sign In')
+        signin_link.click()
+
+        username_field = self.selenium.find_element(By.XPATH, "//table//input[@name='username']")
+        password_field = self.selenium.find_element(By.XPATH, "//table//input[@name='password']")
+        loginBtn =  self.selenium.find_element(By.ID, 'loginBtn')
+
+        username_field.send_keys('bob')
+        password_field.send_keys('bobbybrown1')
+        loginBtn.click()
+        sleep(2)
+
+        reviews_link = self.selenium.find_element(By.LINK_TEXT, 'Reviews')
         reviews_link.click()
+        sleep(2)
+        
+        createBtn = self.selenium.find_element(By.ID, 'reviewBtn')
+        createBtn.click()
+        sleep(2)
 
+        name_field = self.selenium.find_element(By.XPATH, "//table//input[@name='name']")
+        name_field.send_keys('Grapes')
+        sleep(2)
 
-        # Check if review was created
+        details_field = self.selenium.find_element(By.XPATH, "//table//*[@name='details']")
+        details_field.send_keys('Absolutely disgusting!')
+        sleep(2)
+
+        submitBtn = self.selenium.find_element(By.ID, 'submitBtn')
+        submitBtn.click()
+        sleep(2)
+
         reviews = self.selenium.find_elements(By.CLASS_NAME, 'row')
-
-        # Assert that reviews exist
         self.assertNotEqual(len(reviews), 0)
+
+
+
+
+
+
+
+        
