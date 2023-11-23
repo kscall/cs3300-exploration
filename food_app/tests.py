@@ -129,7 +129,7 @@ class ReviewTestCase(StaticLiveServerTestCase):
 
         # Create review
         self.selenium.get(self.live_server_url)
-        reviews_link = self.selenium.find_element(By.LINK_TEXT, 'Reviews')
+        reviews_link = self.selenium.find_element(By.PARTIAL_LINK_TEXT, 'Reviews')
         reviews_link.click()
 
 
