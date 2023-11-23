@@ -132,10 +132,12 @@ class ReviewTestCase(StaticLiveServerTestCase):
 
         # Check if review was created
         self.selenium.get(self.live_server_url)
+
         # Wait for the 'Reviews' link to be present
-r       reviews_link = WebDriverWait(self.selenium, 10).until(
-            EC.presence_of_element_located((By.LINK_TEXT, 'Reviews'))
+        reviews_link = WebDriverWait(self.selenium, 10).until(
+            expected_conditions.presence_of_element_located((By.LINK_TEXT, 'Reviews'))
         )
+
         reviews_link.click()
 
         reviews = self.selenium.find_elements(By.CLASS_NAME, 'row')
