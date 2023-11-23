@@ -6,6 +6,7 @@ from .models import Profile
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from time import sleep
 
 '''
 Unit Tests
@@ -119,6 +120,7 @@ class ReviewTestCase(StaticLiveServerTestCase):
         }
         
         self.client.post(reverse('login'), data=login_data, follow=True)
+        sleep(3)
 
         review_data = {
             'name': 'Cookie',
@@ -127,11 +129,13 @@ class ReviewTestCase(StaticLiveServerTestCase):
         }
 
         self.client.post(reverse('create-review'), data=review_data, follow=True)
+        sleep(3)
 
         # Check if review was created
         self.selenium.get(self.live_server_url)
         reviews_link = self.selenium.find_element(By.LINK_TEXT, 'Reviews')
         reviews_link.click()
+        sleep(3)
 
         reviews = self.selenium.find_elements(By.CLASS_NAME, 'row')
 
