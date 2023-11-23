@@ -54,7 +54,7 @@ class LoginTestCase(TestCase):
 class LogOutTestCase(TestCase):
     
     def test_logoutProfile(self):
-        
+
         user = User.objects.create_user(username='bob', password='abc1234', email='bob@gmail.com')
         Profile.objects.create(user=user)
 
@@ -117,6 +117,7 @@ class ReviewTestCase(StaticLiveServerTestCase):
             'username': 'bob',
             'password': 'abc1234',
         }
+        
         self.client.post(reverse('login'), data=login_data, follow=True)
 
         review_data = {
