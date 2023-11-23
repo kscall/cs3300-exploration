@@ -117,11 +117,12 @@ def registerPage(request):
                 email=user.email,
             )
 
-        messages.success(request, 'Account was created for ' + username)
-        return redirect('login')
+            messages.success(request, 'Account was created for ' + username)
+            return redirect('login')
 
     context = {'form': form}
     return render(request, 'registration/register.html', context)
+
 
 
 def logoutUser(request):

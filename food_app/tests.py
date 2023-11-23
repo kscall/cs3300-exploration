@@ -17,8 +17,8 @@ class ProfileTestCase(TestCase):
         user_data = {
             'username': 'bob',
             'email': 'bob@gmail.com',
-            'password1': 'abc1234',
-            'password2': 'abc1234',
+            'password1': 'bobbybrown1',
+            'password2': 'bobbybrown1',
         }
 
         response = self.client.post(reverse('register'), data=user_data)
@@ -35,12 +35,12 @@ class LoginTestCase(TestCase):
     
     def test_loginProfile(self):
 
-        user = User.objects.create_user(username='bob', password='abc1234', email='bob@gmail.com')
+        user = User.objects.create_user(username='bob', password='bobbybrown1', email='bob@gmail.com')
         Profile.objects.create(user=user)
 
         login_data = {
             'username': 'bob',
-            'password': 'abc1234',
+            'password': 'bobbybrown1',
         }
 
         response = self.client.post(reverse('login'), data=login_data, follow=True)
@@ -55,12 +55,12 @@ class LogOutTestCase(TestCase):
     
     def test_logoutProfile(self):
 
-        user = User.objects.create_user(username='bob', password='abc1234', email='bob@gmail.com')
+        user = User.objects.create_user(username='bob', password='bobbybrown1', email='bob@gmail.com')
         Profile.objects.create(user=user)
 
         login_data = {
             'username': 'bob',
-            'password': 'abc1234',
+            'password': 'bobbybrown1',
         }
 
         self.client.post(reverse('login'), data=login_data, follow=True)
@@ -110,12 +110,12 @@ class ReviewTestCase(StaticLiveServerTestCase):
 
     def test_ReviewExists(self):
         
-        user = User.objects.create_user(username='bob', password='abc1234', email='bob@gmail.com')
+        user = User.objects.create_user(username='bob', password='bobbybrown1', email='bob@gmail.com')
         Profile.objects.create(user=user)
 
         login_data = {
             'username': 'bob',
-            'password': 'abc1234',
+            'password': 'bobbybrown1',
         }
         
         self.client.post(reverse('login'), data=login_data, follow=True)
