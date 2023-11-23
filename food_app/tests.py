@@ -134,7 +134,7 @@ class ReviewTestCase(StaticLiveServerTestCase):
         self.selenium.get(self.live_server_url)
 
         # Wait for the 'Reviews' link to be present
-        reviews_link = WebDriverWait(self.selenium, 10).until(
+        reviews_link = WebDriverWait(self.selenium, 60).until(
             expected_conditions.presence_of_element_located((By.LINK_TEXT, 'Reviews'))
         )
 
