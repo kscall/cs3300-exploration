@@ -133,9 +133,9 @@ class ReviewTestCase(StaticLiveServerTestCase):
 
         # Check if review was created
         self.selenium.get(self.live_server_url)
+        sleep(10)
         reviews_link = self.selenium.find_element(By.LINK_TEXT, 'Reviews')
         reviews_link.click()
-        sleep(10)
 
         reviews = self.selenium.find_elements(By.CLASS_NAME, 'row')
         sleep(10)
