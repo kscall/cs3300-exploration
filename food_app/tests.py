@@ -6,8 +6,7 @@ from .models import Profile
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions
+from time import sleep
 
 '''
 Unit Tests
@@ -132,12 +131,7 @@ class ReviewTestCase(StaticLiveServerTestCase):
 
         # Check if review was created
         self.selenium.get(self.live_server_url)
-
-        # Wait for the 'Reviews' link to be present
-        reviews_link = WebDriverWait(self.selenium, 60).until(
-            expected_conditions.presence_of_element_located((By.LINK_TEXT, 'Reviews'))
-        )
-
+        reviews_link = self.selenium.find_element(By.LINK_TEXT, 'Reviews')
         reviews_link.click()
 
         reviews = self.selenium.find_elements(By.CLASS_NAME, 'row')
