@@ -27,6 +27,13 @@
       border-style: solid;
       border-width: 5px;
     }
+
+    .edit-profile {
+      margin-left: 20px;
+      margin-top: 5px;
+      height: 40px;
+    }
+
   </style>
 
   {% if profile.is_private and profile.user.username != user.username %}
@@ -44,7 +51,9 @@
       <div class="profile-header">
         <h1>{{ profile.name }}</h1>
         {% if profile.user.username == user.username %}
-          <a class="btn btn-primary" href="{% url 'update-profile' %}" style="margin-left: 20px; margin-top: 5px; height: 40px;" role="Edit Profile">Edit Profile</a>
+          <div class="edit-profile">
+            <a class="btn btn-primary" href="{% url 'update-profile' %}" role="Edit Profile">Edit Profile</a>
+          </div>
         {% endif %}
       </div>
 
@@ -59,9 +68,14 @@
     {% if review_list %}
       <h2>Reviews</h2>
 
+      {% if profile.user.username == user.username %}
+        <a class="btn btn-success" style="margin-bottom: 10px;" href="{% url 'create-review' %}" role="button" id = 'reviewBtn'>Create a Review</a>
+      {% endif %}
+
       <div class="row">
         {% for review in review_list %}
           <div class="col-md-3 mb-4">
+
             <div class="card" style="max-height: 400px; max-width: 300px; background-color: rgb(219, 205, 200);">
               {% if review.image %}
                 <img src="{{ review.image.url }}" class="card-img-top" width="300" height="200" alt="{{ review.name }} Image" />
