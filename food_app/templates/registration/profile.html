@@ -40,6 +40,7 @@
     <h3 style="margin-top: 50px">This user's profile is private.</h3>
   {% else %}
     <div class="profile-top">
+
       <!-- Display review image if the user chose to upload one (images are optional) -->
       {% if profile.image %}
         <img class="rounded-circle article-img" src="{{ profile.image.url }}" height="175" width="175" alt="{{ profile.name }}'s Profile Picture" />
@@ -50,6 +51,7 @@
       <!-- Ensure user can only update their own profile -->
       <div class="profile-header">
         <h1>{{ profile.name }}</h1>
+        
         {% if profile.user.username == user.username %}
           <div class="edit-profile">
             <a class="btn btn-primary" href="{% url 'update-profile' %}" role="Edit Profile">Edit Profile</a>
