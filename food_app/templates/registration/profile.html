@@ -2,10 +2,12 @@
 {% extends 'food_app/base_template.html' %}
 {% load static %}
 
+<!-- Profile view for a user -->
 {% block content %}
   <style>
     body {
       background-color: rgb(219, 205, 200);
+      overflow-x: hidden;
     }
     
     .profile-top {
@@ -38,6 +40,7 @@
         <img src="{% static 'images/default-pfp.png' %}" height="175" width="175" alt="Default Review Image" />
       {% endif %}
 
+      <!-- Ensure user can only update their own profile -->
       <div class="profile-header">
         <h1>{{ profile.name }}</h1>
         {% if profile.user.username == user.username %}

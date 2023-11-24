@@ -8,8 +8,9 @@
 
 {% block content %}
   <style>
-    body {
+    body { 
       background-color: rgb(219, 205, 200);
+      overflow-x: hidden;
     }
     
     .image {
@@ -35,9 +36,12 @@
   {% if review_list %}
     <div class="row">
       {% for review in review_list %}
+        <!-- Only users with public profiles revews will be shown -->
         {% if not review.author.is_private %}
           <div class="col-md-3 mb-4">
             <div class="card" style="max-height: 400px; max-width: 300px; background-color: rgb(219, 205, 200);">
+
+              <!-- Show review details in a card container -->
               {% if review.image %}
                 <img src="{{ review.image.url }}" class="card-img-top" width="300" height="200" alt="{{ review.name }} Image" />
               {% else %}
@@ -45,6 +49,7 @@
               {% endif %}
 
               <div class="card-body">
+
                 <h5 class="card-title">{{ review.name }}</h5>
 
                 {% if review.rating == 1 %}
@@ -63,6 +68,7 @@
 
                 <!-- Direct user to review detail page -->
                 <a href="{{ review.get_absolute_url }}" class="btn btn-primary">View</a>
+                
               </div>
             </div>
           </div>

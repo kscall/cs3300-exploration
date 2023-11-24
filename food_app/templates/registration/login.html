@@ -1,6 +1,7 @@
 <!-- inherit from base.html -->
 {% extends 'food_app/base_template.html' %}
 
+<!-- Page where user logs into their TasteBuds account -->
 {% block content %}
   <style>
     body {
@@ -33,7 +34,7 @@
       </tr>
     </table>
     <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
-    <input type="submit" value="Log In" id='loginBtn' />
+    <input type="submit" value="Log In" id="loginBtn"/>
     <input type="hidden" name="next" value="{% url 'index' %}" />
   </form>
 

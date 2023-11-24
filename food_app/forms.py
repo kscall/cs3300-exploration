@@ -10,6 +10,7 @@ class ReviewForm(ModelForm):
     class Meta:
         model = Review
         fields = ('name', 'rating', 'details', 'image')
+
         labels = {
             'name': 'Food Name',
         }
@@ -28,10 +29,13 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['image', 'username', 'name', 'email', 'biography']
+
         labels = {
             'image': 'Profile Picture',
             'biography': 'About Me',
         }
+
+        # Allow user to see their username, but not modify it
         widgets = {
             'username': forms.TextInput(attrs={'readonly': 'readonly'}),
         }
@@ -39,6 +43,6 @@ class ProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
 
-        # Set the initial value for the 'username' field to the username
+        # Set value of 'username' field to the user's username
         if self.instance.user:
             self.initial['username'] = self.instance.user.username

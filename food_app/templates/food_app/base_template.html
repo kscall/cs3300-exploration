@@ -37,12 +37,12 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-link" href="{% url 'index' %}">Home</a>
-            <a class="nav-link" href="{% url 'reviews' %}" id="reviews">Reviews</a>
+            <a class="nav-link" href="{% url 'reviews' %}">Reviews</a>
           </div>
         </div>
 
         {% if not request.user.is_authenticated %}
-          <span><a class="navbar-profile" href="{% url 'login' %}">Sign In</a></span>
+          <span><a class="navbar-profile" href="{% url 'login' %}">Log In</a></span>
         {% else %}
           <span><a class="navbar-profile" href="{% url 'profile' %}">Profile</a></span>
           <span><a class="navbar-profile" href="{% url 'logout' %}">Log Out</a></span>

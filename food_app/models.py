@@ -4,12 +4,15 @@ from django.contrib.auth.models import User
 
 # Profile Model
 class Profile(models.Model):
+
     # Fields (user, name, email, image, bio)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50, blank=True)
     email = models.EmailField(max_length=200)
     image = models.ImageField(blank=True, upload_to='profile_pics')
     biography = models.TextField(blank=True, max_length=200)
+
+    # Boolean whether account is private or not
     is_private = models.BooleanField(default=False)
 
     # Define default string to return the name for representing the Model object.
@@ -22,6 +25,7 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse('profile-detail', args=[str(self.id)])
     
+    # Returns the username of user associated w/ profile
     def username(self):
         return self.user.username
 

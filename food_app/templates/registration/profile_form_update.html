@@ -1,7 +1,9 @@
 
 {% extends 'food_app/base_template.html' %}
 
+<!-- Form to edit profile details -->
 {% block content %}
+
   <style>
     body {
       background-color: rgb(219, 205, 200);
@@ -14,6 +16,7 @@
       {% csrf_token %}
       <table>{{ form.as_table }}</table>
 
+      <!-- Switch for changing privacy of a profile -->
       <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" name="is_private" {% if form.instance.is_private %}checked{% endif %}>
         <label class="form-check-label" for="privateSwitch"><b>Private Profile</b></label>
@@ -21,10 +24,12 @@
 
       <br>
 
-      <!-- Go back to the detail page of the profile -->
+      <!-- Go to back profile page -->
       <a class="btn btn-secondary" href="{% url 'profile' %}" role="Back">Back</a>
+
       <!-- Update profile -->
       <input class="btn btn-primary" type="submit" value="Submit" />
+
     </form>
   </div>
   

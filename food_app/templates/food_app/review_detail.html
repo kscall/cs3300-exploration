@@ -56,9 +56,7 @@
     <p><strong>Details:</strong> {{ review.details }}</p>
 
     {% if review.author.username == user.username %}
-      <!-- Directs to updating a review -->
       <a class="btn btn-primary" href="{% url 'update-review' review.id %}" role="Update">Update</a>
-      <!-- Directs to deleting a review -->
       <a class="btn btn-danger" href="{% url 'delete-review' review.id %}" role="Delete">Delete</a>
     {% endif %}
 
