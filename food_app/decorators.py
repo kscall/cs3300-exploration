@@ -43,8 +43,3 @@ def incorrect_author(view_func):
     
     return wrapper_func
 
-
-
-
-    
-        

@@ -140,6 +140,7 @@ def logoutUser(request):
     return redirect('login')
 
 # View for user's personal profile
+@login_required(login_url='login')
 def personalProfile(request):
     
     # Send in profile and query of their personal reviews to vew
@@ -165,7 +166,7 @@ def userProfile(request, username):
 
 
 # View for updating a profile - logged out users do not have a profile to modify
-@unauthenticated_user
+@login_required(login_url='login')
 def updateProfile(request):
 
     # Get the user's profile

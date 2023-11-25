@@ -35,8 +35,10 @@
 
   {% if review_list %}
     <div class="row">
+      
       {% for review in review_list %}
         <!-- Only users with public profiles revews will be shown -->
+
         {% if not review.author.is_private %}
           <div class="col-md-3 mb-4">
             <div class="card" style="max-height: 400px; max-width: 300px; background-color: rgb(219, 205, 200);">
