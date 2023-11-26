@@ -16,17 +16,6 @@ def authenticated_user(view_func):
     
     return wrapper_func
 
-# Decorator handling unauthorized pages for unauthenticated users
-def unauthenticated_user(view_func):
-    def wrapper_func(request, *args, **kwargs):
-        # Allow user to access content
-        if request.user.is_authenticated:
-            return view_func(request, *args, **kwargs)
-        else:
-            # Redirect user to home page
-            return redirect('index')
-    
-    return wrapper_func
 
 # Decorator handling incorrect author of a review attempting an action
 def incorrect_author(view_func):
